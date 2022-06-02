@@ -99,14 +99,13 @@
         const p = document.createElement("p")
 
         a.href = "./product.html?id=" + obj._id
-        a.alt = obj.altTxt
         items.appendChild(a)
 
         a.appendChild(article)
 
         article.appendChild(img)
         img.src =  obj.imageUrl
-        img.alt = "Lorem ipsum dolor sit amet, " + obj.name
+        img.alt = obj.altTxt
         
         article.appendChild(h3)
         h3.className = "productName"
@@ -114,7 +113,7 @@
         
         article.appendChild(p)
         p.className = "productDescription"
-        p.innerHTML = "Dis enim malesuada risus sapien gravida nulla nisl arcu. Dis enim malesuada risus sapien gravida nulla nisl arcu."
+        p.innerHTML = obj.description
       }
     })
     .catch(() => {

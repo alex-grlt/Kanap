@@ -33,6 +33,9 @@ exports.getOneProduct = (req, res, next) => {
   )
 };
 
+
+
+
 /**
  *
  * Expects request to contain:

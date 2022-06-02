@@ -124,45 +124,49 @@
             </div> </footer> <script src="../js/product.js">
             </script>
 
-  <script>
-    fetch("http://localhost:3000/api/products")
-      .then((response) => {
-        if (response.ok) return response.json()
-        else throw new Error('erreur ${response.status} : ${response.textStatus}')
-      })
-      .then((json) => {
+            <script>
+              const str = document.URL
+              var url = new URL(str)
+              var id = url.searchParams.get("id")
+              console.log(id)
 
-        const str = document.URL
-        var url = new URL(str)
-        var id = url.searchParams.get("id")
-        console.log(id)
+              fetch("http://localhost:3000/api/products/" + id)
+                .then((response) => {
+                  if (response.ok) return response.json()
+                  else throw new Error('erreur ${response.status} : ${response.textStatus}')
+                })
+                .then((json) => {
+                  const img = document.createElement("img")
 
-        for (obj of json) {
-          if (id === obj._id){
-          const img = document.createElement("img")
+                  item__img.appendChild(img)
+                  img.src = json.imageUrl
+                  img.alt = "Photographie d'un canapé"
 
-          item__img.appendChild(img)
-          img.src = obj.imageUrl
-          img.alt = "Photographie d'un canapé"
+                  title.innerHTML = json.name
+                  price.innerHTML = json.price
+                  description.innerHTML = json.description
 
-          title.innerHTML = obj.name
-          price.innerHTML = obj.price
-          description.innerHTML = obj.description
+                  for (color of json.colors) {
+                    const option = document.createElement("option")
+                    colors.appendChild(option)
+                    option.value = color
+                    option.innerHTML = color
+                  }
 
-          for (color of obj.colors){
-            const option = document.createElement("option")
-            colors.appendChild(option)
-            option.value = color
-            option.innerHTML = color
-          }
-          
-          }
-        }
-      })
-      .catch(() => {
-        console.error('ERREUR')
-      })
-  </script>
+                  const bouton = document.getElementById("addToCart")
+                  bouton.addEventListener("click", function (evt) {
+                    console.log(document.getElementById("colors").value)
+                    console.log(document.getElementById("quantity").value)
+                    addBasket(id)
+                  })
+
+                  console.log(getBasket())
+
+                })
+                .catch((error) => {
+                  console.log(error)
+                })
+            </script>
 </body>
 
 </html>
