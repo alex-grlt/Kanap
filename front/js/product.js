@@ -2,12 +2,25 @@ function saveBasket(basket) {
     localStorage.setItem("basket", JSON.stringify(basket))
   }
 
+function saveContact(contact){
+  localStorage.setItem("contact", JSON.stringify(contact))
+}
+
   function getBasket() {
     let basket = localStorage.getItem("basket")
     if (basket == null) {
       return [];
     } else {
       return JSON.parse(basket)
+    }
+  }
+
+  function getContact() {
+    let contact = localStorage.getItem("contact")
+    if (contact == null) {
+      return [];
+    } else {
+      return JSON.parse(contact)
     }
   }
 
@@ -23,9 +36,9 @@ function saveBasket(basket) {
   }
 
   function addContactBasket(contact){
-    let basket = getBasket()
-    basket.push({prenom:contact.prenom,nom:contact.nom,addresse:contact.addresse,ville:contact.ville,email:contact.email})
-    saveBasket(basket)
+    let newContact = getContact()
+    newContact.push({prenom:contact.prenom,nom:contact.nom,addresse:contact.addresse,ville:contact.ville,email:contact.email})
+    saveContact(newContact)
   }
 
   function removeFromBasket(id, option) {
