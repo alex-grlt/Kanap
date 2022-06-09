@@ -22,9 +22,15 @@ function saveBasket(basket) {
     saveBasket(basket)
   }
 
+  function addContactBasket(contact){
+    let basket = getBasket()
+    basket.push({prenom:contact.prenom,nom:contact.nom,addresse:contact.addresse,ville:contact.ville,email:contact.email})
+    saveBasket(basket)
+  }
+
   function removeFromBasket(id, option) {
     let basket = getBasket()
-    basket = basket.filter(p => p.id != product.id)
+    basket = basket.filter(p => p.id != id && p.option != option)
     saveBasket(basket)
   }
 
@@ -47,15 +53,16 @@ function saveBasket(basket) {
     for (product of basket) {
       number += product.quantity
     }
-    return number;
+    return number
   }
+
+
 
   function getTotalPrice() {
     let basket = getBasket()
     let total = 0
-    for (product of basket) {
-      total += product.quantity * product.price
+    for (obj of json) {
     }
-    return total;
-
   }
+
+  
