@@ -148,13 +148,12 @@
 
             <script>
               let total = 0
+
+              async function retrieveBasket(){
               for (canap of getBasket()){
-                fetch("http://localhost:3000/api/products/" + canap.id)
-                  .then((response) => {
-                    if (response.ok) return response.json()
-                    else throw new Error('erreur ${response.status} : ${response.textStatus}')
-                  })
-                  .then((json) => {
+                  let reponse = await fetch("http://localhost:3000/api/products/" + canap.id)
+                  let data = await reponse.json()
+                  
                     const article = document.createElement("article")
                     const div1 = document.createElement("div")
                     const div2 = document.createElement("div")
@@ -170,7 +169,6 @@
                     const p4 = document.createElement("p")
                     const input = document.createElement("input")
 
-
                     cart__items.appendChild(article)
                     article.appendChild(div1)
                     div1.appendChild(img)
@@ -183,10 +181,10 @@
 
                     div1.className = "cart__item__img"
 
-                    img.src = json.imageUrl
-                    h2.innerHTML = json.name
+                    img.src = data.imageUrl
+                    h2.innerHTML = data.name
                     p1.innerHTML = canap.option
-                    p2.innerHTML = json.price + " €"
+                    p2.innerHTML = data.price + " €"
 
 
                     img.alt = "Photographie d'un canapé"
@@ -230,8 +228,7 @@
                     })
                     /* Ré-afficher le panier refresh page panier*/
 
-
-                    console.log(total += canap.quantity * json.price)
+                    /*console.log(total += canap.quantity * json.price)*/
 
 
                     order.addEventListener("click", function (evt) {
@@ -313,21 +310,23 @@
                         }
                       }
                     })
-                    const promise = fetch("http://localhost:3000/api/products/order", {
+                    /*const promise = fetch("http://localhost:3000/api/products/order", {
                       method: "POST",
                       body: JSON.stringify(getContact()) + JSON.stringify(getBasket()),
                       headers: {
                         "Content-Type": "application/json"
                       }
-                    })
+                    })*/
 
+                  }
+                  
+                }
+                  
+            
+            
+            retrieveBasket()
+            
 
-                  })
-
-                  .catch((error) => {
-                    console.error(error)
-                  })
-              }
             </script>
 </body>
 
