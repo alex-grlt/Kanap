@@ -157,11 +157,13 @@
                   bouton.addEventListener("click", function (evt) {
                     let option = document.getElementById("colors").value
                     let qte = parseInt(document.getElementById("quantity").value)
+
                     if (option == 0 || qte == 0){
                       console.log("Veuillez choisir une quantité et une option")
                     }else{
                     addBasket(id, option, qte)}
                     })
+                    
                   })
                 .catch((error) => {
                   console.log(error)
