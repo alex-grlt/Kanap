@@ -128,7 +128,6 @@
               const str = document.URL
               var url = new URL(str)
               var id = url.searchParams.get("id")
-              console.log(id)
 
               fetch("http://localhost:3000/api/products/" + id)
                 .then((response) => {
@@ -163,7 +162,7 @@
                     }else{
                     addBasket(id, option, qte)}
                     })
-                    
+
                   })
                 .catch((error) => {
                   console.log(error)

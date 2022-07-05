@@ -168,7 +168,6 @@
    */
   function sendCommand(){
     order.addEventListener("click", async function (evt) {
-      //evt.preventDefault()
       let prenom = document.getElementById("firstName").value
       let nom = document.getElementById("lastName").value
       let addresse = document.getElementById("address").value
@@ -176,54 +175,31 @@
       let email = document.getElementById("email").value
 
       if (/^[^0-9][A-Z]*[a-z]*$/.test(prenom) == false) {
-        (document.getElementById("firstNameErrorMsg")).innerHTML = "Ceci est un message d'erreur"
+        (document.getElementById("firstNameErrorMsg")).innerHTML = "Entrez un prénom valide"
+        evt.preventDefault()
       } else {
         (document.getElementById("firstNameErrorMsg")).innerHTML = ""
 
         if (/^[^0-9][A-Z]*[a-z]*$/.test(nom) == false) {
-          (document.getElementById("lastNameErrorMsg")).innerHTML = "Ceci est un message d'erreur"
+          (document.getElementById("lastNameErrorMsg")).innerHTML = "Entrez un nom valide"
+          evt.preventDefault()
         } else {
           (document.getElementById("lastNameErrorMsg")).innerHTML = ""
           if (/.*\S.*/.test(addresse) == false) {
-            (document.getElementById("addressErrorMsg")).innerHTML =
-              "Ceci est un message d'erreur"
+            (document.getElementById("addressErrorMsg")).innerHTML = "Entrez une adresse valide"
+            evt.preventDefault()
           } else {
             (document.getElementById("addressErrorMsg")).innerHTML = ""
-            if (/.*\S.*/.test(addresse) == false) {
-              (document.getElementById("addressErrorMsg")).innerHTML =
-                "Ceci est un message d'erreur"
-            } else {
-              (document.getElementById("addressErrorMsg")).innerHTML = ""
-              if (/.*\S.*/.test(addresse) == false) {
-                (document.getElementById("addressErrorMsg")).innerHTML =
-                  "Ceci est un message d'erreur"
-              } else {
-                (document.getElementById("addressErrorMsg")).innerHTML = ""
                 if (/^[^0-9][A-Z]*[a-z]*$/.test(ville) == false) {
-                  (document.getElementById("cityErrorMsg")).innerHTML =
-                    "Ceci est un message d'erreur"
+                  (document.getElementById("cityErrorMsg")).innerHTML = "Entrez une ville valide"
+                  evt.preventDefault()
                 } else {
                   (document.getElementById("cityErrorMsg")).innerHTML = ""
-                  if (/^[^0-9][A-Z]*[a-z]*$/.test(ville) == false) {
-                    (document.getElementById("cityErrorMsg")).innerHTML =
-                      "Ceci est un message d'erreur"
-                  } else {
-                    (document.getElementById("cityErrorMsg")).innerHTML = ""
-                    if (/^[^0-9][A-Z]*[a-z]*$/.test(ville) == false) {
-                      (document.getElementById("cityErrorMsg")).innerHTML =
-                        "Ceci est un message d'erreur"
-                    } else {
-                      (document.getElementById("cityErrorMsg")).innerHTML = ""
-                      if (/^[^0-9][A-Z]*[a-z]*$/.test(ville) == false) {
-                        (document.getElementById("cityErrorMsg")).innerHTML =
-                          "Ceci est un message d'erreur"
-                      } else {
-                        (document.getElementById("cityErrorMsg")).innerHTML = ""
                         if (
                           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                           .test(email) == false) {
-                          (document.getElementById("emailErrorMsg")).innerHTML =
-                            "Ceci est un message d'erreur"
+                          (document.getElementById("emailErrorMsg")).innerHTML = "Entrez un email valide"
+                          evt.preventDefault()
                         } else {
                           (document.getElementById("emailErrorMsg")).innerHTML = ""
 
@@ -245,17 +221,18 @@
                             })
 
                             let data = await result.json()
-                            console.log(data)
 
                             document.location.href="confirmation.html?data=" + data.orderId;
+
+                            document.querySelector(".cart__order__form").reset()
+
+                            for(canap of getBasket()){
+                            removeFromBasket(canap.id, canap.option)}
+
+                            
                         }
-                      }
-                    }
-                  }
                 }
-              }
-            }
-          }
+           }
         }
       }
     })
